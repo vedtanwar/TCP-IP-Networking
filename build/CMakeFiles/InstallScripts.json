@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/tanwarv/Vedprakash/Vs_code/TCP-IP/clone1/TCP-IP-Networking/build/cmake_install.cmake",
+		"/Users/tanwarv/Vedprakash/Vs_code/TCP-IP/clone1/TCP-IP-Networking/build/ThirdParty/spdlog/cmake_install.cmake",
+		"/Users/tanwarv/Vedprakash/Vs_code/TCP-IP/clone1/TCP-IP-Networking/build/test/cmake_install.cmake",
+		"/Users/tanwarv/Vedprakash/Vs_code/TCP-IP/clone1/TCP-IP-Networking/ThirdParty/googletest-build/cmake_install.cmake",
+		"/Users/tanwarv/Vedprakash/Vs_code/TCP-IP/clone1/TCP-IP-Networking/ThirdParty/googletest-build/googlemock/cmake_install.cmake",
+		"/Users/tanwarv/Vedprakash/Vs_code/TCP-IP/clone1/TCP-IP-Networking/ThirdParty/googletest-build/googletest/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

@@ -29,7 +29,7 @@ message(STATUS "Project: ${PROJECT_NAME}")
 message(STATUS "Version: ${PROJECT_VERSION}")
 
 # External dependency
-add_subdirectory(${CMAKE_SOURCE_DIR}ThirdParty/spdlog)
+add_subdirectory(${CMAKE_SOURCE_DIR}/ThirdParty/spdlog)
 
 # Shared library for common implementation
 set(TCP_LIB_SOURCES
@@ -81,6 +81,6 @@ target_compile_options(client PRIVATE
 )
 
   if(BUILD_TESTING)
-    add_subdirectory(${CMAKE_SOURCE_DIR}test)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/test)
   endif()
 
