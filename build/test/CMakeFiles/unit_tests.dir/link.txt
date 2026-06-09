@@ -1,1 +1,0 @@
-/usr/bin/c++ -O3 -DNDEBUG -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/unit_tests.dir/test_ClientSession.cpp.o CMakeFiles/unit_tests.dir/test_TcpClient.cpp.o CMakeFiles/unit_tests.dir/test_TcpServer.cpp.o -o ../bin/unit_tests  ../lib/libtcp_lib.a ../lib/libgtest_main.a ../lib/libspdlog.a ../lib/libgtest.a
