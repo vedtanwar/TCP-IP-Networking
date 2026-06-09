@@ -1,8 +1,12 @@
+#ifndef TCPSERVER_H
+#define TCPSERVER_H
+
 #include "ClientSession.h"
 #include "log.h"
 
 #include <memory>
 #include <unordered_map>
+#include <unistd.h>
 
 using S_CLIENT_PTR = std::unique_ptr<ClientSession>;
 
@@ -33,3 +37,5 @@ public:
 
     bool SetNonBlocking(int fd);
 };
+
+#endif // TCPSERVER_H

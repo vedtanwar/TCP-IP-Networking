@@ -9,6 +9,17 @@ TcpServer::TcpServer()
 
 TcpServer::~TcpServer()
 {
+    if (m_listenFd != -1)
+    {
+        close(m_listenFd);
+        m_listenFd = -1;
+    }
+
+    if (m_epoll_Fd != -1)
+    {
+        close(m_epoll_Fd);
+        m_epoll_Fd = -1;
+    }
 }
 
 bool TcpServer::Initialize(uint16_t port)

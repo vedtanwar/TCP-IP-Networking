@@ -5,7 +5,22 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# Prefer release by default for this small server project
+# Output directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/lib)
+
+enable_testing()
+
+option(BUILD_TESTING "Build unit tests" ON)
+
 if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Build type" FORCE)
 endif()
@@ -16,30 +31,38 @@ message(STATUS "Version: ${PROJECT_VERSION}")
 # External dependency
 add_subdirectory(ThirdParty/spdlog)
 
-# Application source files
-set(SERVER_SOURCES
-    src/main.cpp
+# Shared library for common implementation
+set(TCP_LIB_SOURCES
     src/TcpServer.cpp
     src/ClientSession.cpp
-    Log/log.cpp
-)
-
-set(CLIENT_SOURCES
-    src/clientMain.cpp
     src/TcpClient.cpp
     Log/log.cpp
 )
 
-add_executable(server ${SERVER_SOURCES})
-add_executable(client ${CLIENT_SOURCES})
+add_library(tcp_lib STATIC ${TCP_LIB_SOURCES})
 
-target_include_directories(server PRIVATE
+target_include_directories(tcp_lib PUBLIC
     ${CMAKE_SOURCE_DIR}/include
 )
 
-target_include_directories(client PRIVATE
-    ${CMAKE_SOURCE_DIR}/include
+target_compile_features(tcp_lib PUBLIC cxx_std_23)
+
+target_compile_options(tcp_lib PRIVATE
+    -Wall
+    -Wextra
+    -Wpedantic
 )
+
+target_link_libraries(tcp_lib PUBLIC
+    spdlog::spdlog
+)
+
+add_executable(server src/main.cpp)
+add_executable(client src/clientMain.cpp)
+
+target_link_libraries(server PRIVATE tcp_lib)
+
+target_link_libraries(client PRIVATE tcp_lib)
 
 target_compile_features(server PRIVATE cxx_std_23)
 
@@ -57,11 +80,7 @@ target_compile_options(client PRIVATE
     -Wpedantic
 )
 
-target_link_libraries(server PRIVATE
-    spdlog::spdlog
-)
-
-target_link_libraries(client PRIVATE
-    spdlog::spdlog
-)
+  if(BUILD_TESTING)
+    add_subdirectory(test)
+  endif()
 

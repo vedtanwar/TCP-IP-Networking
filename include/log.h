@@ -1,4 +1,6 @@
 
+#ifndef LOG_H
+#define LOG_H
 
 #include <memory>
 #include <string>
@@ -49,3 +51,5 @@ public:
 private:
     static std::shared_ptr<spdlog::logger> m_logger;
 };
+
+#endif // LOG_H
