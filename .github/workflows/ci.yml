@@ -31,6 +31,10 @@ jobs:
               run: |
                     cd build
                     make -j
+            - name: Run Integration Test
+              run: |
+                    chmod +x test/integration_test.sh
+                    ./test/integration_test.sh
             
             # 4. Run Unit Tests
             - name: Run unit tests
