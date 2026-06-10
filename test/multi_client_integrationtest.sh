@@ -11,6 +11,7 @@ trap 'kill $SERVER_PID' EXIT
 sleep 2
 
 NUM_CLIENTS=5
+CLIENT_PIDS=()
 
 echo "Starting $NUM_CLIENTS clients..."
 
@@ -29,8 +30,12 @@ send "quit\r"
 expect eof
 EOF
 ) &
+CLIENT_PIDS+=("$!")
 done
 
-wait
+for pid in "${CLIENT_PIDS[@]}"
+do
+  wait "$pid"
+done
 
 echo "All clients completed successfully"
