@@ -36,6 +36,11 @@ jobs:
                     chmod +x test/integration_test.sh
                     ./test/integration_test.sh
             
+            - name: Run Multi Client Test
+              run: |
+                chmod +x test/multi_client_integrationtest.sh
+                ./test/multi_client_integrationtest.sh
+            
             # 4. Run Unit Tests
             - name: Run unit tests
               run: |
